@@ -10,8 +10,6 @@ public class MenuManager {
 
 	/**
 	 * 定义菜单结构
-	 * 
-	 * @return
 	 */
 	private static Menu getMenu() {
 		ClickButton btn11 = new ClickButton();

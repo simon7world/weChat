@@ -1,11 +1,17 @@
 package simon.zsh.world.wechat.menu;
 
+import simon.zsh.world.wechat.Types;
 import simon.zsh.world.wechat.basis.ButtonBase;
 
 /**
  * 点击类型的按钮
  */
-public class ClickButton extends ButtonBase {
+public final class ClickButton extends ButtonBase {
+
+	public ClickButton() {
+
+		setType(Types.EVENT_CLICK);
+	}
 
 	private String type;
 

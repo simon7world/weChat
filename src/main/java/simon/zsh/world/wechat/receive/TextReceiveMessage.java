@@ -6,13 +6,32 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
 
-import simon.zsh.world.wechat.WeChatMessages;
+import simon.zsh.world.wechat.Types;
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.basis.SendMessageBase;
 import simon.zsh.world.wechat.send.TextSendMessage;
 import simon.zsh.world.wechat.tools.WeatherTool;
 
-public final class TextReceiveMessage extends ReceiveMessageBase {
+import com.google.common.base.Function;
+
+public abstract class TextReceiveMessage extends ReceiveMessageBase {
+
+	static {
+
+		TEXT_ADAPTERS.put("天气",
+				new Function<ReceiveMessageBase, SendMessageBase>() {
+
+					@Override
+					public SendMessageBase apply(final ReceiveMessageBase obj) {
+
+						final TextSendMessage tsm = obj
+								.makeSendMessage(TextSendMessage.class);
+						tsm.setContent(new WeatherTool().fromHtml());
+
+						return tsm;
+					}
+				});
+	}
 
 	public TextReceiveMessage(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
@@ -36,29 +55,15 @@ public final class TextReceiveMessage extends ReceiveMessageBase {
 
 	public static boolean verify(final String type) {
 
-		return WeChatMessages.TEXT.equalsIgnoreCase(type);
-	}
-
-	private SendMessageBase weather() {
-
-		final TextSendMessage tsm = this.makeSendMessage(TextSendMessage.class);
-		tsm.setContent(new WeatherTool().fromHtml());
-
-		return tsm;
+		return Types.TEXT.equalsIgnoreCase(type);
 	}
 
 	@Override
-	public SAXSource aloha(final HttpServletRequest req) {
+	public final SAXSource aloha(final HttpServletRequest req) {
 
-		SendMessageBase source = null;
-		switch (content) {
+		final SendMessageBase msg = TEXT_ADAPTERS.get(content).apply(this);
 
-		case "天气":
-			source = weather();
-			break;
-		}
-
-		return source.toSource();
+		return msg.toSource();
 	}
 
 }

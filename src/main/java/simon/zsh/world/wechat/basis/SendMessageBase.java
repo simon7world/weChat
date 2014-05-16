@@ -10,12 +10,12 @@ import simon.zsh.world.wechat.tools.XmlTool;
 public abstract class SendMessageBase extends MessageBase implements ToXml {
 
 	@Override
-	public Document toXml() {
+	public final Document toXml() {
 
 		return new XmlTool().make(this, "xml");
 	}
 
-	public SAXSource toSource() {
+	public final SAXSource toSource() {
 
 		return new SAXSource(new DocumentSource(toXml()).getInputSource());
 	}

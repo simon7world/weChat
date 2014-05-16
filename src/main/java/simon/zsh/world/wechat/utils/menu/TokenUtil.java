@@ -24,9 +24,6 @@ import com.google.gson.Gson;
 
 public abstract class TokenUtil {
 
-	private final static String TOKEN_URL = Constants.CGI_BIN
-			+ "token?grant_type=client_credential&appid=%s&secret=%s";
-
 	/**
 	 * 发送https请求
 	 */
@@ -108,7 +105,7 @@ public abstract class TokenUtil {
 	 */
 	public static void getAccessToken() {
 
-		final String ret = httpsRequest(String.format(TOKEN_URL,
+		final String ret = httpsRequest(String.format(Constants.TOKEN_URL,
 				Constants.APP_ID, Constants.APP_SECRET), "GET", null);
 		if (ret != null) {
 

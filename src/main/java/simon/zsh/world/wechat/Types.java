@@ -1,6 +1,6 @@
 package simon.zsh.world.wechat;
 
-public final class WeChatMessages {
+public final class Types {
 
 	/**
 	 * 消息类型：文本
@@ -68,8 +68,13 @@ public final class WeChatMessages {
 	public static final String EVENT_LOCATION = "location";
 
 	/**
-	 * 事件类型：自定义菜单
+	 * 事件类型：点击类型菜单
 	 */
 	public static final String EVENT_CLICK = "click";
+
+	/**
+	 * 事件类型：视图类型菜单
+	 */
+	public static final String EVENT_VIEW = "view";
 
 }

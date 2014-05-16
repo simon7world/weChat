@@ -2,12 +2,17 @@ package simon.zsh.world.wechat.basis;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
 
+import com.google.common.base.Function;
+
 public abstract class ReceiveMessageBase extends MessageBase {
+
+	protected static final Map<String, Function<ReceiveMessageBase, SendMessageBase>> TEXT_ADAPTERS = new HashMap<>();
 
 	public ReceiveMessageBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
