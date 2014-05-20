@@ -8,11 +8,15 @@ import simon.zsh.world.wechat.basis.ButtonBase;
  */
 public final class ViewButton extends ButtonBase {
 
-	public ViewButton() {
+	public ViewButton(final String name) {
 
-		setType(Types.EVENT_VIEW);
+		super(name);
+		type = Types.EVENT_VIEW;
 	}
 
+	/**
+	 * 按钮类型
+	 */
 	private String type;
 
 	public String getType() {
@@ -23,6 +27,9 @@ public final class ViewButton extends ButtonBase {
 		this.type = type;
 	}
 
+	/**
+	 * 按钮链接
+	 */
 	private String url;
 
 	public String getUrl() {

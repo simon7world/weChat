@@ -10,6 +10,9 @@ import simon.zsh.world.wechat.basis.ButtonBase;
  */
 public final class Menu {
 
+	/**
+	 * 一级按钮
+	 */
 	private List<ButtonBase> button = new ArrayList<>();
 
 	public List<ButtonBase> getButton() {

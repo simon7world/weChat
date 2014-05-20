@@ -8,11 +8,15 @@ import simon.zsh.world.wechat.basis.ButtonBase;
  */
 public final class ClickButton extends ButtonBase {
 
-	public ClickButton() {
+	public ClickButton(final String name) {
 
-		setType(Types.EVENT_CLICK);
+		super(name);
+		type = Types.EVENT_CLICK;
 	}
 
+	/**
+	 * 按钮类型
+	 */
 	private String type;
 
 	public String getType() {
@@ -23,6 +27,9 @@ public final class ClickButton extends ButtonBase {
 		this.type = type;
 	}
 
+	/**
+	 * 按钮键值
+	 */
 	private String key;
 
 	public String getKey() {
@@ -32,4 +39,5 @@ public final class ClickButton extends ButtonBase {
 	public void setKey(final String key) {
 		this.key = key;
 	}
+
 }

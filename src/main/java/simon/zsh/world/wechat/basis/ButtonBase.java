@@ -5,6 +5,14 @@ package simon.zsh.world.wechat.basis;
  */
 public abstract class ButtonBase {
 
+	public ButtonBase(final String name) {
+
+		this.name = name;
+	}
+
+	/**
+	 * 按钮名称
+	 */
 	private String name;
 
 	public String getName() {

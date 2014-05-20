@@ -10,6 +10,14 @@ import simon.zsh.world.wechat.basis.ButtonBase;
  */
 public final class ComplexButton extends ButtonBase {
 
+	public ComplexButton(final String name) {
+
+		super(name);
+	}
+
+	/**
+	 * 二级按钮
+	 */
 	private List<ButtonBase> sub_button = new ArrayList<>();;
 
 	public List<ButtonBase> getSub_button() {
@@ -19,4 +27,5 @@ public final class ComplexButton extends ButtonBase {
 	public void setSub_button(final List<ButtonBase> sub_button) {
 		this.sub_button = sub_button;
 	}
+
 }
