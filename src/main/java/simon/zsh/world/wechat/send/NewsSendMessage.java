@@ -5,16 +5,18 @@ import java.util.List;
 
 import org.dom4j.Document;
 
-import simon.zsh.world.wechat.Types;
 import simon.zsh.world.wechat.basis.SendMessageBase;
 import simon.zsh.world.wechat.basis.ToXml;
 import simon.zsh.world.wechat.tools.XmlTool;
 
+/**
+ * 发送的图文消息
+ */
 public final class NewsSendMessage extends SendMessageBase {
 
 	public NewsSendMessage() {
 
-		setMsgType(Types.NEWS);
+		setMsgType(SendMessageTypes.NEWS);
 	}
 
 	/**

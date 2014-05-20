@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
 
-import simon.zsh.world.wechat.Types;
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.basis.SendMessageBase;
 import simon.zsh.world.wechat.send.TextSendMessage;
@@ -14,6 +13,9 @@ import simon.zsh.world.wechat.tools.WeatherTool;
 
 import com.google.common.base.Function;
 
+/**
+ * 接收的文本消息
+ */
 public abstract class TextReceiveMessage extends ReceiveMessageBase {
 
 	static {
@@ -55,7 +57,7 @@ public abstract class TextReceiveMessage extends ReceiveMessageBase {
 
 	public static boolean verify(final String type) {
 
-		return Types.TEXT.equalsIgnoreCase(type);
+		return ReceiveMessageTypes.TEXT.equalsIgnoreCase(type);
 	}
 
 	@Override

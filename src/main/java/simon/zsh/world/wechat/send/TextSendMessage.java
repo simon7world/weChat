@@ -1,13 +1,15 @@
 package simon.zsh.world.wechat.send;
 
-import simon.zsh.world.wechat.Types;
 import simon.zsh.world.wechat.basis.SendMessageBase;
 
+/**
+ * 发送的文本消息
+ */
 public final class TextSendMessage extends SendMessageBase {
 
 	public TextSendMessage() {
 
-		setMsgType(Types.TEXT);
+		setMsgType(SendMessageTypes.TEXT);
 	}
 
 	/**

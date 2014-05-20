@@ -1,6 +1,5 @@
 package simon.zsh.world.wechat.menu;
 
-import simon.zsh.world.wechat.Types;
 import simon.zsh.world.wechat.basis.ButtonBase;
 
 /**
@@ -11,7 +10,7 @@ public final class ClickButton extends ButtonBase {
 	public ClickButton(final String name) {
 
 		super(name);
-		type = Types.EVENT_CLICK;
+		type = MenuTypes.CLICK;
 	}
 
 	/**

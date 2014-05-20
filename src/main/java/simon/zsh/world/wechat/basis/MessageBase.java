@@ -1,5 +1,8 @@
 package simon.zsh.world.wechat.basis;
 
+/**
+ * 消息的基类
+ */
 public abstract class MessageBase {
 
 	/**
