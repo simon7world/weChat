@@ -21,31 +21,42 @@ import simon.zsh.world.wechat.utils.StringUtils;
 
 public abstract class MatchTool {
 
+	private static final String EVENT = "Event", VERIFY = "verify";
+
 	protected static final List<Class<? extends ReceiveMessageBase>> MSGS = new ArrayList<>();
 	protected static final List<Class<? extends EventBase>> EVTS = new ArrayList<>();
-	private static final String EVENT = "Event";
 
 	public final SAXSource find(final HttpServletRequest req) {
 
 		final Map<String, String> vals = xml2Map(req);
-
-		String msgType = vals.get("MsgType");
-		if (EVENT.equalsIgnoreCase(msgType)) {
-
-			msgType = vals.get(EVENT);
-		}
-
-		if (vals != null && !StringUtils.isEmpty(msgType)) {
+		final String msgType = vals.get("MsgType");
+		final String event = EVENT.equalsIgnoreCase(msgType) ? vals.get(EVENT)
+				: null;
+		if (vals != null) {
 
 			try {
 
-				for (Class<?> clazz : MSGS) {
+				if (StringUtils.isEmpty(event)) {
 
-					if ((boolean) clazz.getMethod("verify", String.class)
-							.invoke(clazz, msgType)) {
+					for (final Class<?> clazz : MSGS) {
 
-						return ((ReceiveMessageBase) clazz.getConstructor(
-								Map.class).newInstance(vals)).aloha(req);
+						if ((boolean) clazz.getMethod(VERIFY, String.class)
+								.invoke(clazz, msgType)) {
+
+							return ((ReceiveMessageBase) clazz.getConstructor(
+									Map.class).newInstance(vals)).aloha(req);
+						}
+					}
+				} else {
+
+					for (final Class<?> clazz : EVTS) {
+
+						if ((boolean) clazz.getMethod(VERIFY, String.class)
+								.invoke(clazz, event)) {
+
+							return ((EventBase) clazz.getConstructor(Map.class)
+									.newInstance(vals)).aloha(req);
+						}
 					}
 				}
 			} catch (NoSuchMethodException | IllegalAccessException
