@@ -2,6 +2,8 @@ package simon.zsh.world.wechat.receive;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
@@ -20,19 +22,18 @@ public abstract class TextReceiveMessage extends ReceiveMessageBase {
 
 	static {
 
-		TEXT_ADAPTERS.put("天气",
-				new Function<ReceiveMessageBase, SendMessageBase>() {
+		ADAPTERS.put("天气", new Function<ReceiveMessageBase, SendMessageBase>() {
 
-					@Override
-					public SendMessageBase apply(final ReceiveMessageBase obj) {
+			@Override
+			public SendMessageBase apply(final ReceiveMessageBase obj) {
 
-						final TextSendMessage tsm = obj
-								.makeSendMessage(TextSendMessage.class);
-						tsm.setContent(new WeatherTool().fromHtml());
+				final TextSendMessage tsm = obj
+						.makeSendMessage(TextSendMessage.class);
+				tsm.setContent(new WeatherTool().fromHtml());
 
-						return tsm;
-					}
-				});
+				return tsm;
+			}
+		});
 	}
 
 	public TextReceiveMessage(final Map<String, String> vals)
@@ -63,9 +64,23 @@ public abstract class TextReceiveMessage extends ReceiveMessageBase {
 	@Override
 	public final SAXSource aloha(final HttpServletRequest req) {
 
-		final SendMessageBase msg = TEXT_ADAPTERS.get(content).apply(this);
+		SendMessageBase msg = null;
 
-		return msg.toSource();
+		final Set<Map.Entry<String, Function<ReceiveMessageBase, SendMessageBase>>> es = ADAPTERS
+				.entrySet();
+		for (final Map.Entry<String, Function<ReceiveMessageBase, SendMessageBase>> e : es) {
+
+			if (Pattern
+					.compile("^" + e.getKey() + "$", Pattern.CASE_INSENSITIVE)
+					.matcher(content).matches()) {
+
+				msg = e.getValue().apply(this);
+
+				break;
+			}
+		}
+
+		return msg == null ? null : msg.toSource();
 	}
 
 }

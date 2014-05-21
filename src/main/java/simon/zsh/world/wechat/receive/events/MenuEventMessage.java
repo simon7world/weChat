@@ -8,9 +8,9 @@ import simon.zsh.world.wechat.basis.EventBase;
 /**
  * 菜单点击事件
  */
-public abstract class MenuEvent extends EventBase {
+public abstract class MenuEventMessage extends EventBase {
 
-	public MenuEvent(final Map<String, String> vals)
+	public MenuEventMessage(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
 

@@ -8,9 +8,9 @@ import simon.zsh.world.wechat.basis.EventBase;
 /**
  * 订阅事件
  */
-public abstract class SubscribeEvent extends EventBase {
+public abstract class SubscribeEventMessage extends EventBase {
 
-	public SubscribeEvent(final Map<String, String> vals)
+	public SubscribeEventMessage(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
 

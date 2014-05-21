@@ -1,5 +1,6 @@
 package simon.zsh.world.wechat.menu;
 
+import java.util.Collections;
 import java.util.List;
 
 import simon.zsh.world.wechat.basis.ButtonBase;
@@ -26,9 +27,11 @@ public final class MenuManager {
 		btn12.setKey("bible2");
 		bible.add(btn12);
 
-		final ClickButton btn13 = new ClickButton("每日金句");
+		final ClickButton btn13 = new ClickButton("随机金句");
 		btn13.setKey("bible3");
 		bible.add(btn13);
+
+		Collections.reverse(bible);
 
 		/**
 		 * 菜单项二
@@ -52,6 +55,8 @@ public final class MenuManager {
 		btn24.setKey("streams4");
 		streams.add(btn24);
 
+		Collections.reverse(streams);
+
 		/**
 		 * 菜单项三
 		 */
@@ -70,6 +75,8 @@ public final class MenuManager {
 		btn33.setKey("about3");
 		about.add(btn33);
 
+		Collections.reverse(about);
+
 		/**
 		 * 菜单
 		 */
@@ -84,13 +91,7 @@ public final class MenuManager {
 
 	public static void main(String[] args) {
 
-		final boolean result = MenuUtil.createMenu(getMenu());
-
-		if (result) {
-			System.out.println("菜单创建成功！");
-		} else {
-			System.out.println("菜单创建失败！");
-		}
+		System.out.println(MenuUtil.createMenu(getMenu()) ? "成 功" : "失 败");
 	}
 
 }
