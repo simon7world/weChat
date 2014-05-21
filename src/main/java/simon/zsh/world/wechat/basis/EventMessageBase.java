@@ -9,11 +9,11 @@ import com.google.common.base.Function;
 /**
  * 事件的基类
  */
-public abstract class EventBase extends ReceiveBase {
+public abstract class EventMessageBase extends ReceiveBase {
 
-	protected static final Map<String, Function<EventBase, SendMessageBase>> EVENT_ADAPTERS = new HashMap<>();
+	protected static final Map<String, Function<EventMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>();
 
-	public EventBase(final Map<String, String> vals)
+	public EventMessageBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
 

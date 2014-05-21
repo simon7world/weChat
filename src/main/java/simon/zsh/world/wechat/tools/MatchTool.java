@@ -15,7 +15,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import simon.zsh.world.wechat.basis.EventBase;
+import simon.zsh.world.wechat.basis.EventMessageBase;
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.utils.StringUtils;
 
@@ -24,7 +24,7 @@ public abstract class MatchTool {
 	private static final String EVENT = "Event", VERIFY = "verify";
 
 	protected static final List<Class<? extends ReceiveMessageBase>> MSGS = new ArrayList<>();
-	protected static final List<Class<? extends EventBase>> EVTS = new ArrayList<>();
+	protected static final List<Class<? extends EventMessageBase>> EVTS = new ArrayList<>();
 
 	public final SAXSource find(final HttpServletRequest req) {
 
@@ -54,8 +54,8 @@ public abstract class MatchTool {
 						if ((boolean) clazz.getMethod(VERIFY, String.class)
 								.invoke(clazz, event)) {
 
-							return ((EventBase) clazz.getConstructor(Map.class)
-									.newInstance(vals)).aloha(req);
+							return ((EventMessageBase) clazz.getConstructor(
+									Map.class).newInstance(vals)).aloha(req);
 						}
 					}
 				}
