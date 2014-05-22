@@ -33,4 +33,13 @@ public abstract class EventMessageBase extends ReceiveBase {
 		this.event = event;
 	}
 
+	@Override
+	protected final SendMessageBase find(final String key) {
+
+		final Function<EventMessageBase, SendMessageBase> func = ADAPTERS
+				.get(key);
+
+		return func == null ? null : func.apply(this);
+	}
+
 }

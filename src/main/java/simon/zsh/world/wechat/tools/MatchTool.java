@@ -11,11 +11,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
 
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import simon.zsh.world.wechat.basis.EventMessageBase;
+import simon.zsh.world.wechat.basis.ReceiveBase;
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.utils.StringUtils;
 
@@ -26,7 +28,21 @@ public abstract class MatchTool {
 	protected static final List<Class<? extends ReceiveMessageBase>> MSGS = new ArrayList<>();
 	protected static final List<Class<? extends EventMessageBase>> EVTS = new ArrayList<>();
 
-	public final SAXSource find(final HttpServletRequest req) {
+	public final SAXSource findSource(final HttpServletRequest req) {
+
+		final ReceiveBase rb = find(req);
+
+		return rb == null ? null : rb.aloha();
+	}
+
+	public final Document findDocument(final HttpServletRequest req) {
+
+		final ReceiveBase rb = find(req);
+
+		return rb == null ? null : rb.hula();
+	}
+
+	private ReceiveBase find(final HttpServletRequest req) {
 
 		final Map<String, String> vals = xml2Map(req);
 		final String msgType = vals.get("MsgType");
@@ -43,8 +59,9 @@ public abstract class MatchTool {
 						if ((boolean) clazz.getMethod(VERIFY, String.class)
 								.invoke(clazz, msgType)) {
 
-							return ((ReceiveMessageBase) clazz.getConstructor(
-									Map.class).newInstance(vals)).aloha(req);
+							return (ReceiveBase) clazz
+									.getConstructor(Map.class)
+									.newInstance(vals);
 						}
 					}
 				} else {
@@ -54,8 +71,9 @@ public abstract class MatchTool {
 						if ((boolean) clazz.getMethod(VERIFY, String.class)
 								.invoke(clazz, event)) {
 
-							return ((EventMessageBase) clazz.getConstructor(
-									Map.class).newInstance(vals)).aloha(req);
+							return (ReceiveBase) clazz
+									.getConstructor(Map.class)
+									.newInstance(vals);
 						}
 					}
 				}

@@ -3,13 +3,12 @@ package simon.zsh.world.wechat.receive.events;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
+
+import org.dom4j.Document;
 
 import simon.zsh.world.wechat.basis.EventMessageBase;
 import simon.zsh.world.wechat.basis.SendMessageBase;
-
-import com.google.common.base.Function;
 
 /**
  * 菜单点击事件
@@ -42,12 +41,19 @@ public abstract class MenuEventMessage extends EventMessageBase {
 	}
 
 	@Override
-	public final SAXSource aloha(final HttpServletRequest req) {
+	public final SAXSource aloha() {
 
-		final Function<EventMessageBase, SendMessageBase> func = ADAPTERS
-				.get(eventKey);
+		final SendMessageBase smb = this.find(eventKey);
 
-		return func == null ? null : func.apply(this).toSource();
+		return smb == null ? null : smb.toSource();
+	}
+
+	@Override
+	public final Document hula() {
+
+		final SendMessageBase smb = this.find(eventKey);
+
+		return smb == null ? null : smb.toXml();
 	}
 
 }

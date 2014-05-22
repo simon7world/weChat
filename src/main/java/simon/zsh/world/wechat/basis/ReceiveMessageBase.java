@@ -3,6 +3,8 @@ package simon.zsh.world.wechat.basis;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 import com.google.common.base.Function;
 
@@ -31,6 +33,28 @@ public abstract class ReceiveMessageBase extends ReceiveBase {
 
 	public void setMsgId(final String msgId) {
 		this.msgId = Long.parseLong(msgId);
+	}
+
+	@Override
+	protected final SendMessageBase find(final String key) {
+
+		SendMessageBase msg = null;
+
+		final Set<Map.Entry<String, Function<ReceiveMessageBase, SendMessageBase>>> es = ADAPTERS
+				.entrySet();
+		for (final Map.Entry<String, Function<ReceiveMessageBase, SendMessageBase>> e : es) {
+
+			if (Pattern
+					.compile("^" + e.getKey() + "$", Pattern.CASE_INSENSITIVE)
+					.matcher(key).matches()) {
+
+				msg = e.getValue().apply(this);
+
+				break;
+			}
+		}
+
+		return msg == null ? this.makeNothingMessage() : msg;
 	}
 
 }

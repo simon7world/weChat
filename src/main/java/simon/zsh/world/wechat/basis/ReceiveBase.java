@@ -4,13 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.transform.sax.SAXSource;
+import simon.zsh.world.wechat.send.TextSendMessage;
 
 /**
  * 接收的基类
  */
-public abstract class ReceiveBase extends MessageBase {
+public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
+		IHawaii {
 
 	public ReceiveBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
@@ -27,7 +27,9 @@ public abstract class ReceiveBase extends MessageBase {
 		}
 	}
 
-	public <T extends SendMessageBase> T makeSendMessage(final Class<T> clazz) {
+	@Override
+	public final <T extends SendMessageBase> T makeSendMessage(
+			final Class<T> clazz) {
 
 		T t = null;
 		try {
@@ -46,6 +48,15 @@ public abstract class ReceiveBase extends MessageBase {
 		return t;
 	}
 
-	public abstract SAXSource aloha(final HttpServletRequest req);
+	@Override
+	public final TextSendMessage makeNothingMessage() {
+
+		final TextSendMessage tsm = makeSendMessage(TextSendMessage.class);
+		tsm.setContent("您的指令太高深，我无法理解！");
+
+		return tsm;
+	}
+
+	protected abstract SendMessageBase find(final String key);
 
 }

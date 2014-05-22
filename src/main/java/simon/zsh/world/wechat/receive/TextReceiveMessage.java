@@ -2,11 +2,10 @@ package simon.zsh.world.wechat.receive;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
+
+import org.dom4j.Document;
 
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.basis.SendMessageBase;
@@ -62,25 +61,15 @@ public abstract class TextReceiveMessage extends ReceiveMessageBase {
 	}
 
 	@Override
-	public final SAXSource aloha(final HttpServletRequest req) {
+	public final SAXSource aloha() {
 
-		SendMessageBase msg = null;
+		return this.find(content).toSource();
+	}
 
-		final Set<Map.Entry<String, Function<ReceiveMessageBase, SendMessageBase>>> es = ADAPTERS
-				.entrySet();
-		for (final Map.Entry<String, Function<ReceiveMessageBase, SendMessageBase>> e : es) {
+	@Override
+	public final Document hula() {
 
-			if (Pattern
-					.compile("^" + e.getKey() + "$", Pattern.CASE_INSENSITIVE)
-					.matcher(content).matches()) {
-
-				msg = e.getValue().apply(this);
-
-				break;
-			}
-		}
-
-		return msg == null ? null : msg.toSource();
+		return this.find(content).toXml();
 	}
 
 }

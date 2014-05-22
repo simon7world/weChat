@@ -10,7 +10,7 @@ import simon.zsh.world.wechat.tools.XmlTool;
 /**
  * 发送消息的基类
  */
-public abstract class SendMessageBase extends MessageBase implements ToXml {
+public abstract class SendMessageBase extends MessageBase implements IToXml {
 
 	@Override
 	public final Document toXml() {

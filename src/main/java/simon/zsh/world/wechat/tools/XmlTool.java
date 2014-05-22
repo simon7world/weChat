@@ -8,7 +8,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import simon.zsh.world.wechat.basis.ToXml;
+import simon.zsh.world.wechat.basis.IToXml;
 
 public final class XmlTool {
 
@@ -31,9 +31,9 @@ public final class XmlTool {
 					if (List.class.equals(m.getReturnType())) {
 
 						@SuppressWarnings("unchecked")
-						final List<? extends ToXml> list = (List<? extends ToXml>) m
+						final List<? extends IToXml> list = (List<? extends IToXml>) m
 								.invoke(obj);
-						for (final ToXml l : list) {
+						for (final IToXml l : list) {
 
 							sub.add(l.toXml().getRootElement());
 						}

@@ -6,7 +6,7 @@ import java.util.List;
 import org.dom4j.Document;
 
 import simon.zsh.world.wechat.basis.SendMessageBase;
-import simon.zsh.world.wechat.basis.ToXml;
+import simon.zsh.world.wechat.basis.IToXml;
 import simon.zsh.world.wechat.tools.XmlTool;
 
 /**
@@ -48,7 +48,7 @@ public final class NewsSendMessage extends SendMessageBase {
 	/**
 	 * 图文消息
 	 */
-	public static final class Article implements ToXml {
+	public static final class Article implements IToXml {
 
 		/**
 		 * 图文消息名称
