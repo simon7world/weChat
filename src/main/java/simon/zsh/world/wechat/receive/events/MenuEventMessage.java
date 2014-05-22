@@ -32,7 +32,7 @@ public abstract class MenuEventMessage extends EventMessageBase {
 	}
 
 	public void setEventKey(String eventKey) {
-		this.eventKey = eventKey;
+		this.eventKey = eventKey.trim();
 	}
 
 	public static boolean verify(final String event) {

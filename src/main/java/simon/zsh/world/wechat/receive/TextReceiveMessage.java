@@ -52,7 +52,7 @@ public abstract class TextReceiveMessage extends ReceiveMessageBase {
 	}
 
 	public void setContent(final String content) {
-		this.content = content;
+		this.content = content.trim();
 	}
 
 	public static boolean verify(final String type) {
