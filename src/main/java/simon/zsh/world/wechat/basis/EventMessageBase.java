@@ -11,7 +11,7 @@ import com.google.common.base.Function;
  */
 public abstract class EventMessageBase extends ReceiveBase {
 
-	protected static final Map<String, Function<EventMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>();
+	protected static final Map<String, Function<EventMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>(12);
 
 	public EventMessageBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,

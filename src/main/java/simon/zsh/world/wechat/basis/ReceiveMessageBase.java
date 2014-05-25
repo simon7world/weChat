@@ -13,7 +13,7 @@ import com.google.common.base.Function;
  */
 public abstract class ReceiveMessageBase extends ReceiveBase {
 
-	protected static final Map<String, Function<ReceiveMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>();
+	protected static final Map<String, Function<ReceiveMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>(12);
 
 	public ReceiveMessageBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
