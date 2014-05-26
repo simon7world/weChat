@@ -23,13 +23,17 @@ public final class MenuManager {
 		btn11.setKey("bible1");
 		bible.add(btn11);
 
-		final ClickButton btn12 = new ClickButton("书卷与缩写");
+		final ClickButton btn12 = new ClickButton("模糊检索");
 		btn12.setKey("bible2");
 		bible.add(btn12);
 
-		final ClickButton btn13 = new ClickButton("随机金句");
+		final ClickButton btn13 = new ClickButton("书卷与缩写");
 		btn13.setKey("bible3");
 		bible.add(btn13);
+
+		final ClickButton btn14 = new ClickButton("随机金句");
+		btn14.setKey("bible4");
+		bible.add(btn14);
 
 		Collections.reverse(bible);
 
@@ -92,6 +96,7 @@ public final class MenuManager {
 	public static void main(String[] args) {
 
 		System.out.println(MenuUtil.createMenu(getMenu()) ? "成 功" : "失 败");
+		//System.out.println(MenuUtil.deleteMenu() ? "成 功" : "失 败");
 	}
 
 }
