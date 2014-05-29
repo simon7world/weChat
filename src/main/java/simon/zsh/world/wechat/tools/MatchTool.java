@@ -25,8 +25,10 @@ public abstract class MatchTool {
 
 	private static final String EVENT = "Event", VERIFY = "verify";
 
-	protected static final List<Class<? extends ReceiveMessageBase>> MSGS = new ArrayList<>(6);
-	protected static final List<Class<? extends EventMessageBase>> EVTS = new ArrayList<>(6);
+	protected static final List<Class<? extends ReceiveMessageBase>> MSGS = new ArrayList<>(
+			6);
+	protected static final List<Class<? extends EventMessageBase>> EVTS = new ArrayList<>(
+			6);
 
 	public final SAXSource findSource(final HttpServletRequest req) {
 
@@ -103,6 +105,12 @@ public abstract class MatchTool {
 		}
 
 		return vals;
+	}
+
+	public static boolean isWeChatBrowser(final HttpServletRequest req) {
+
+		return req.getHeader("user-agent").toLowerCase()
+				.contains("micromessenger");
 	}
 
 }
