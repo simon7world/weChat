@@ -13,7 +13,8 @@ import com.google.common.base.Function;
  */
 public abstract class ReceiveMessageBase extends ReceiveBase {
 
-	protected static final Map<String, Function<ReceiveMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>(12);
+	protected static final Map<String, Function<ReceiveMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>(
+			12);
 
 	public ReceiveMessageBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
@@ -49,12 +50,16 @@ public abstract class ReceiveMessageBase extends ReceiveBase {
 					.matcher(key).matches()) {
 
 				msg = e.getValue().apply(this);
+				if (msg == null) {
+
+					msg = this.makeNothingMessage();
+				}
 
 				break;
 			}
 		}
 
-		return msg == null ? this.makeNothingMessage() : msg;
+		return msg == null ? this.makeMismatchMessage() : msg;
 	}
 
 }

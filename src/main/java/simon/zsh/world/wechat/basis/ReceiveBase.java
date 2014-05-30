@@ -52,6 +52,15 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 	public final TextSendMessage makeNothingMessage() {
 
 		final TextSendMessage tsm = makeSendMessage(TextSendMessage.class);
+		tsm.setContent("您的指令执行无结果~\n请检查或稍候再试！");
+
+		return tsm;
+	}
+
+	@Override
+	public final TextSendMessage makeMismatchMessage() {
+
+		final TextSendMessage tsm = makeSendMessage(TextSendMessage.class);
 		tsm.setContent("您的指令太高深了~\n我无法理解！");
 
 		return tsm;

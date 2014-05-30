@@ -11,7 +11,8 @@ import com.google.common.base.Function;
  */
 public abstract class EventMessageBase extends ReceiveBase {
 
-	protected static final Map<String, Function<EventMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>(12);
+	protected static final Map<String, Function<EventMessageBase, SendMessageBase>> ADAPTERS = new HashMap<>(
+			12);
 
 	public EventMessageBase(final Map<String, String> vals)
 			throws IllegalAccessException, IllegalArgumentException,
@@ -36,10 +37,20 @@ public abstract class EventMessageBase extends ReceiveBase {
 	@Override
 	protected final SendMessageBase find(final String key) {
 
+		SendMessageBase msg = null;
+
 		final Function<EventMessageBase, SendMessageBase> func = ADAPTERS
 				.get(key);
+		if (func != null) {
 
-		return func == null ? null : func.apply(this);
+			msg = func.apply(this);
+			if (msg == null) {
+
+				msg = this.makeNothingMessage();
+			}
+		}
+
+		return msg == null ? this.makeMismatchMessage() : msg;
 	}
 
 }

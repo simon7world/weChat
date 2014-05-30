@@ -8,4 +8,6 @@ public interface IMakeMessage {
 
 	TextSendMessage makeNothingMessage();
 
+	TextSendMessage makeMismatchMessage();
+
 }
