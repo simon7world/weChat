@@ -4,8 +4,8 @@
 
 	<groupId>simon.zsh.world</groupId>
 	<artifactId>wechat</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	<version>0.2.2</version>
 
 	<name>wechat</name>
 	<url></url>
