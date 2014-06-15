@@ -1,12 +1,12 @@
 We Chat Interface for Java
 ==========================
-Last Version: 0.2.2<br>
+Last Version: 0.3<br>
 Author: Simon Chang<br>
 Email: simon.p.7@outlook.com
 
 Receive Module
 --------------
-Text
+Text, Image, Link, Location, Video, Voice
 
 Send Module
 -----------
