@@ -54,7 +54,7 @@ public final class WeatherTool {
 			}
 		}
 
-		return "接口正忙，请稍候再试！";
+		return "接口当前正忙，请稍候再试！";
 	}
 
 	private String htmlSource(final String url) {

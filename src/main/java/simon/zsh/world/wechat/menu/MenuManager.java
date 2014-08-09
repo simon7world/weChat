@@ -35,6 +35,10 @@ public final class MenuManager {
 		btn14.setKey("bible4");
 		bible.add(btn14);
 
+		final ClickButton btn15 = new ClickButton("每日箴言");
+		btn15.setKey("bible5");
+		bible.add(btn15);
+		
 		Collections.reverse(bible);
 
 		/**
@@ -95,8 +99,8 @@ public final class MenuManager {
 
 	public static void main(String[] args) {
 
+		System.out.println(MenuUtil.deleteMenu() ? "成 功" : "失 败");
 		System.out.println(MenuUtil.createMenu(getMenu()) ? "成 功" : "失 败");
-		//System.out.println(MenuUtil.deleteMenu() ? "成 功" : "失 败");
 	}
 
 }
