@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -54,8 +53,7 @@ public abstract class TokenUtil {
 				}
 			} };
 
-			final SSLContext sslContext = SSLContext.getInstance("SSL",
-					"SunJSSE");
+			final SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
 			sslContext.init(null, tm, new SecureRandom());
 
 			final URL rurl = new URL(url);
@@ -88,8 +86,8 @@ public abstract class TokenUtil {
 
 				ret = buffer.toString();
 			}
-		} catch (IOException | NoSuchAlgorithmException
-				| NoSuchProviderException | KeyManagementException e) {
+		} catch (final IOException | NoSuchAlgorithmException
+				| KeyManagementException e) {
 		} finally {
 
 			if (conn != null) {
@@ -116,9 +114,9 @@ public abstract class TokenUtil {
 						Map.class);
 
 				Constants.ACCESS_TOKEN = (String) vals.get("access_token");
-				Constants.UEXPIRES_IN = (int) vals.get("uexpires_in");
+				Constants.UEXPIRES_IN = (double) vals.get("expires_in");
 
-			} catch (Exception e) {
+			} catch (final Exception e) {
 			}
 		}
 	}
