@@ -31,7 +31,7 @@ public final class MenuManager {
 		btn13.setKey("bible3");
 		bible.add(btn13);
 
-		final ClickButton btn14 = new ClickButton("随机金句");
+		final ClickButton btn14 = new ClickButton("随机经句");
 		btn14.setKey("bible4");
 		bible.add(btn14);
 
@@ -82,6 +82,10 @@ public final class MenuManager {
 		final ClickButton btn33 = new ClickButton("信经");
 		btn33.setKey("about3");
 		about.add(btn33);
+
+		final ClickButton btn34 = new ClickButton("友情链接");
+		btn34.setKey("about4");
+		about.add(btn34);
 
 		Collections.reverse(about);
 
