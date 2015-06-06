@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.dom4j.Document;
 
-import simon.zsh.world.wechat.basis.SendMessageBase;
 import simon.zsh.world.wechat.basis.IToXml;
+import simon.zsh.world.wechat.basis.SendMessageBase;
 import simon.zsh.world.wechat.tools.XmlTool;
 
 /**
@@ -107,7 +107,5 @@ public final class NewsSendMessage extends SendMessageBase {
 
 			return new XmlTool().make(this, "item");
 		}
-
 	}
-
 }

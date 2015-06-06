@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>simon.zsh.world</groupId>
-	<artifactId>wechat</artifactId>
+	<artifactId>weChat</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5</version>
+	<version>1.0</version>
 
 	<name>wechat</name>
-	<url></url>
+	<url>https://github.com/simon7world/weChat</url>
 
 	<properties>
 		<java-version>1.7</java-version>
@@ -17,6 +17,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.qq.weixin.mp</groupId>
+			<artifactId>aes</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
@@ -39,6 +45,12 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
 		</dependency>
 
 		<dependency>

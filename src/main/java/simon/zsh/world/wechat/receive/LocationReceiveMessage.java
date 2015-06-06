@@ -3,10 +3,6 @@ package simon.zsh.world.wechat.receive;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import javax.xml.transform.sax.SAXSource;
-
-import org.dom4j.Document;
-
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 
 /**
@@ -79,15 +75,9 @@ public abstract class LocationReceiveMessage extends ReceiveMessageBase {
 	}
 
 	@Override
-	public final SAXSource aloha() {
+	public final String aloha() {
 
-		return this.find(location_Y + "," + location_X).toSource();
-	}
-
-	@Override
-	public final Document hula() {
-
-		return this.find(location_Y + "," + location_X).toXml();
+		return this.find(location_Y + "," + location_X).toXml().asXML();
 	}
 
 }

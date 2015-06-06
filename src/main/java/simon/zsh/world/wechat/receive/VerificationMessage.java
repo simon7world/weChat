@@ -61,10 +61,36 @@ public final class VerificationMessage {
 		this.echostr = echostr;
 	}
 
-	public String verify() {
+	/**
+	 * 加密类型
+	 */
+	private String encrypt_type;
 
-		if (!(StringUtils.isEmpty(signature) || StringUtils.isEmpty(timestamp)
-				|| StringUtils.isEmpty(nonce) || StringUtils.isEmpty(echostr))) {
+	public String getEncrypt_type() {
+		return encrypt_type;
+	}
+
+	public void setEncrypt_type(String encrypt_type) {
+		this.encrypt_type = encrypt_type;
+	}
+
+	/**
+	 * 消息加密签名
+	 */
+	private String msg_signature;
+
+	public String getMsg_signature() {
+		return msg_signature;
+	}
+
+	public void setMsg_signature(String msg_signature) {
+		this.msg_signature = msg_signature;
+	}
+
+	public boolean check() {
+
+		if (!(StringUtils.isEmpty(signature) || StringUtils.isEmpty(timestamp) || StringUtils
+				.isEmpty(nonce))) {
 
 			final String[] arr = { Constants.TOKEN, timestamp, nonce };
 			Arrays.sort(arr);
@@ -76,7 +102,7 @@ public final class VerificationMessage {
 
 				digest = MessageDigest.getInstance("SHA-1").digest(
 						content.getBytes());
-			} catch (NoSuchAlgorithmException e) {
+			} catch (final NoSuchAlgorithmException e) {
 			}
 
 			if (digest != null) {
@@ -87,14 +113,29 @@ public final class VerificationMessage {
 					ciphertext += StringUtils.padLeft(
 							Integer.toHexString(b & 0xff), 2, "0");
 				}
+
 				if (ciphertext.equalsIgnoreCase(signature)) {
 
-					return echostr;
+					return true;
 				}
 			}
+		}
+
+		return false;
+	}
+
+	public String verify() {
+
+		if (check()) {
+
+			return echostr;
 		}
 
 		return null;
 	}
 
+	public boolean hasEncrypted() {
+
+		return "aes".equals(encrypt_type);
+	}
 }

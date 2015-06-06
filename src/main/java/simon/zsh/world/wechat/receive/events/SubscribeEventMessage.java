@@ -3,10 +3,6 @@ package simon.zsh.world.wechat.receive.events;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import javax.xml.transform.sax.SAXSource;
-
-import org.dom4j.Document;
-
 import simon.zsh.world.wechat.basis.EventMessageBase;
 import simon.zsh.world.wechat.basis.SendMessageBase;
 
@@ -28,19 +24,11 @@ public abstract class SubscribeEventMessage extends EventMessageBase {
 	}
 
 	@Override
-	public final SAXSource aloha() {
+	public final String aloha() {
 
 		final SendMessageBase smb = this.find(getEvent().toLowerCase());
 
-		return smb == null ? null : smb.toSource();
-	}
-
-	@Override
-	public final Document hula() {
-
-		final SendMessageBase smb = this.find(getEvent().toLowerCase());
-
-		return smb == null ? null : smb.toXml();
+		return smb == null ? null : smb.toXml().asXML();
 	}
 
 }

@@ -2,9 +2,16 @@ package simon.zsh.world.wechat.basis;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
+import simon.zsh.world.wechat.Constants;
+import simon.zsh.world.wechat.receive.VerificationMessage;
 import simon.zsh.world.wechat.send.TextSendMessage;
+
+import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
 /**
  * 接收的基类
@@ -64,6 +71,26 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 		tsm.setContent("您的指令太高深了~\n我无法理解！");
 
 		return tsm;
+	}
+
+	@Override
+	public final String aloha(final VerificationMessage vm) {
+
+		String ret = null;
+		try {
+
+			final String reply = aloha();
+			if (reply != null) {
+
+				ret = new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
+						Constants.APP_ID).encryptMsg(reply,
+						"" + new Date().getTime(),
+						"" + new Random().nextInt(7777777));
+			}
+		} catch (final AesException e) {
+		}
+
+		return ret;
 	}
 
 	protected abstract SendMessageBase find(final String key);

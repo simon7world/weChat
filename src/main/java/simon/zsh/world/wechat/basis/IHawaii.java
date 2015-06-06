@@ -1,13 +1,10 @@
 package simon.zsh.world.wechat.basis;
 
-import javax.xml.transform.sax.SAXSource;
-
-import org.dom4j.Document;
+import simon.zsh.world.wechat.receive.VerificationMessage;
 
 public interface IHawaii {
 
-	SAXSource aloha();
+	String aloha();
 
-	Document hula();
-
+	String aloha(final VerificationMessage vm);
 }
