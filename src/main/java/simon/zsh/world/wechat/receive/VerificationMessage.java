@@ -1,8 +1,8 @@
 package simon.zsh.world.wechat.receive;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import simon.zsh.world.wechat.Constants;
 import simon.zsh.world.wechat.utils.StringUtils;
@@ -97,27 +97,9 @@ public final class VerificationMessage {
 			final String content = StringUtils.collectionToDelimitedString(
 					Arrays.asList(arr), "");
 
-			byte[] digest = null;
-			try {
+			if (DigestUtils.sha1Hex(content).equalsIgnoreCase(signature)) {
 
-				digest = MessageDigest.getInstance("SHA-1").digest(
-						content.getBytes());
-			} catch (final NoSuchAlgorithmException e) {
-			}
-
-			if (digest != null) {
-
-				String ciphertext = "";
-				for (final byte b : digest) {
-
-					ciphertext += StringUtils.padLeft(
-							Integer.toHexString(b & 0xff), 2, "0");
-				}
-
-				if (ciphertext.equalsIgnoreCase(signature)) {
-
-					return true;
-				}
+				return true;
 			}
 		}
 

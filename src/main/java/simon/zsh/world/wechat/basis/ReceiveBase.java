@@ -2,9 +2,7 @@ package simon.zsh.world.wechat.basis;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Date;
 import java.util.Map;
-import java.util.Random;
 
 import simon.zsh.world.wechat.Constants;
 import simon.zsh.world.wechat.receive.VerificationMessage;
@@ -84,8 +82,8 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 
 				ret = new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
 						Constants.APP_ID).encryptMsg(reply,
-						"" + new Date().getTime(),
-						"" + new Random().nextInt(7777777));
+						"" + System.currentTimeMillis(),
+						Constants.RANDOM_STRING());
 			}
 		} catch (final AesException e) {
 		}

@@ -1,8 +1,13 @@
 package simon.zsh.world.wechat.utils;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import simon.zsh.world.wechat.Constants;
 
@@ -21,6 +26,23 @@ public abstract class TicketUtil {
 		}
 
 		return JSAPI_TICKET;
+	}
+
+	public synchronized static String[] getJSAPI_SIGNATURE(
+			final HttpServletRequest req) {
+
+		final String timestamp = "" + System.currentTimeMillis();
+		final String noncestr = Constants.RANDOM_STRING();
+		final String url = req.getRequestURL() + "?" + req.getQueryString();
+
+		final String[] arr = { "timestamp=" + timestamp,
+				"noncestr=" + noncestr, "url=" + url,
+				"jsapi_ticket=" + JSAPI_TICKET };
+		Arrays.sort(arr);
+		final String content = StringUtils.collectionToDelimitedString(
+				Arrays.asList(arr), "&");
+
+		return new String[] { timestamp, noncestr, DigestUtils.sha1Hex(content) };
 	}
 
 	/**

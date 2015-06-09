@@ -1,5 +1,8 @@
 package simon.zsh.world.wechat;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 public abstract class Constants {
 
 	public static String APP_ID = "wxc5682f9042753a9f";
@@ -14,4 +17,10 @@ public abstract class Constants {
 			+ "token?grant_type=client_credential&appid=%s&secret=%s";
 	public static final String JSAPI_TICKET_URL = CGI_BIN
 			+ "ticket/getticket?access_token=%s&type=jsapi";
+
+	public static String RANDOM_STRING() {
+
+		return new BigInteger(70, new SecureRandom())
+				.toString(Character.MAX_RADIX);
+	}
 }
