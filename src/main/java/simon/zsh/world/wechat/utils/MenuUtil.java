@@ -1,4 +1,4 @@
-package simon.zsh.world.wechat.utils.menu;
+package simon.zsh.world.wechat.utils;
 
 import java.util.Map;
 
@@ -20,17 +20,10 @@ public abstract class MenuUtil {
 
 	static {
 
-		if (Constants.ACCESS_TOKEN == null) {
-
-			TokenUtil.getAccessToken();
-		}
-
-		CREATE_URL = String.format(Constants.MENU_URL, "create",
-				Constants.ACCESS_TOKEN);
-		GET_URL = String.format(Constants.MENU_URL, "get",
-				Constants.ACCESS_TOKEN);
-		DELETE_URL = String.format(Constants.MENU_URL, "delete",
-				Constants.ACCESS_TOKEN);
+		final String at = TokenUtil.getACCESS_TOKEN();
+		CREATE_URL = String.format(Constants.MENU_URL, "create", at);
+		GET_URL = String.format(Constants.MENU_URL, "get", at);
+		DELETE_URL = String.format(Constants.MENU_URL, "delete", at);
 	}
 
 	/**
@@ -78,7 +71,7 @@ public abstract class MenuUtil {
 	private static Map<String, Object> getResult(final String url,
 			final String method, final String source) {
 
-		final String ret = TokenUtil.httpsRequest(url, method, source);
+		final String ret = new HttpsUtil().httpsRequest(url, method, source);
 		if (null != ret) {
 
 			return GSON.fromJson(ret, Map.class);
@@ -86,5 +79,4 @@ public abstract class MenuUtil {
 
 		return null;
 	}
-
 }

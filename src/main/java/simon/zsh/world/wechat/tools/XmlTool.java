@@ -2,6 +2,7 @@ package simon.zsh.world.wechat.tools;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.dom4j.Document;
@@ -15,7 +16,7 @@ public final class XmlTool {
 	public Document make(final Object obj, final String rootName) {
 
 		final Document doc = DocumentHelper.createDocument();
-		doc.setXMLEncoding("UTF-8");
+		doc.setXMLEncoding(StandardCharsets.UTF_8.name());
 		final Element root = doc.addElement(rootName);
 
 		final Method[] ms = obj.getClass().getMethods();

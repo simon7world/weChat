@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -62,7 +63,8 @@ public final class WeatherTool {
 		final StringBuilder htmlSource = new StringBuilder(7800);
 
 		try (final BufferedReader in = new BufferedReader(
-				new InputStreamReader(new URL(url).openStream(), "UTF-8"))) {
+				new InputStreamReader(new URL(url).openStream(),
+						StandardCharsets.UTF_8))) {
 
 			String htmlLine;
 			while ((htmlLine = in.readLine()) != null) {

@@ -1,6 +1,6 @@
 WeChat Interface for Java
 =========================
-Last Version: 1.0<br>
+Last Version: 1.1<br>
 Author: Simon Chang<br>
 Email: simon.p.7@outlook.com
 

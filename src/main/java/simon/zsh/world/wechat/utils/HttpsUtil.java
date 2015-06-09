@@ -1,32 +1,28 @@
-package simon.zsh.world.wechat.utils.menu;
+package simon.zsh.world.wechat.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import simon.zsh.world.wechat.Constants;
-
-import com.google.gson.Gson;
-
-public abstract class TokenUtil {
+final class HttpsUtil {
 
 	/**
 	 * 发送https请求
 	 */
-	public static String httpsRequest(final String url, final String method,
+	String httpsRequest(final String url, final String method,
 			final String source) {
 
 		HttpsURLConnection conn = null;
@@ -58,9 +54,10 @@ public abstract class TokenUtil {
 
 			final URL rurl = new URL(url);
 			conn = (HttpsURLConnection) rurl.openConnection();
+			conn.setConnectTimeout(12000);
+			conn.setReadTimeout(12000);
 			conn.setSSLSocketFactory(sslContext.getSocketFactory());
 			conn.setDoOutput(true);
-			conn.setDoInput(true);
 			conn.setUseCaches(false);
 			conn.setRequestMethod(method);
 
@@ -69,13 +66,14 @@ public abstract class TokenUtil {
 
 				try (final OutputStream os = conn.getOutputStream()) {
 
-					os.write(source.getBytes("UTF-8"));
+					os.write(source.getBytes(StandardCharsets.UTF_8));
 				}
 			}
 
 			// 从输入流读取返回内容
 			try (final BufferedReader br = new BufferedReader(
-					new InputStreamReader(conn.getInputStream(), "UTF-8"))) {
+					new InputStreamReader(conn.getInputStream(),
+							StandardCharsets.UTF_8))) {
 
 				String str = null;
 				final StringBuffer buffer = new StringBuffer();
@@ -91,34 +89,11 @@ public abstract class TokenUtil {
 		} finally {
 
 			if (conn != null) {
+
 				conn.disconnect();
 			}
 		}
 
 		return ret;
 	}
-
-	/**
-	 * 获取接口访问凭证
-	 */
-	public static void getAccessToken() {
-
-		final String ret = httpsRequest(String.format(Constants.TOKEN_URL,
-				Constants.APP_ID, Constants.APP_SECRET), "GET", null);
-		if (ret != null) {
-
-			try {
-
-				@SuppressWarnings("unchecked")
-				final Map<String, Object> vals = new Gson().fromJson(ret,
-						Map.class);
-
-				Constants.ACCESS_TOKEN = (String) vals.get("access_token");
-				Constants.UEXPIRES_IN = (double) vals.get("expires_in");
-
-			} catch (final Exception e) {
-			}
-		}
-	}
-
 }

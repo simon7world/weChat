@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 import simon.zsh.world.wechat.basis.ButtonBase;
-import simon.zsh.world.wechat.utils.menu.MenuUtil;
+import simon.zsh.world.wechat.utils.MenuUtil;
 
-public final class MenuManager {
+public abstract class MenuManager {
 
 	/**
 	 * 定义菜单结构
@@ -38,7 +38,7 @@ public final class MenuManager {
 		final ClickButton btn15 = new ClickButton("每日箴言");
 		btn15.setKey("bible5");
 		bible.add(btn15);
-		
+
 		Collections.reverse(bible);
 
 		/**
@@ -103,8 +103,8 @@ public final class MenuManager {
 
 	public static void main(String[] args) {
 
+		// System.out.println(MenuUtil.getMenu());
 		System.out.println(MenuUtil.deleteMenu() ? "成 功" : "失 败");
 		System.out.println(MenuUtil.createMenu(getMenu()) ? "成 功" : "失 败");
 	}
-
 }

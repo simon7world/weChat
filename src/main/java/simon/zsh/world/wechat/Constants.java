@@ -8,11 +8,10 @@ public abstract class Constants {
 	public static String TOKEN = "YHSRzibY1YUvQTvriwhe6IQ";
 	public static String AES_KEY = "q79jD4DVP0FtqqAXI7R2RY7el6FdAm7pfjaBo4Ccq2U";
 
-	public static String ACCESS_TOKEN = null;
-	public static Double UEXPIRES_IN = null;
-
 	public static final String CGI_BIN = "https://api.weixin.qq.com/cgi-bin/";
 	public static final String MENU_URL = CGI_BIN + "menu/%s?access_token=%s";
-	public static final String TOKEN_URL = Constants.CGI_BIN
+	public static final String ACCESS_TOKEN_URL = CGI_BIN
 			+ "token?grant_type=client_credential&appid=%s&secret=%s";
+	public static final String JSAPI_TICKET_URL = CGI_BIN
+			+ "ticket/getticket?access_token=%s&type=jsapi";
 }
