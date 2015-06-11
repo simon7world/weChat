@@ -1,9 +1,7 @@
 package simon.zsh.world.wechat.tools;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
@@ -22,7 +19,6 @@ import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.receive.VerificationMessage;
 import simon.zsh.world.wechat.utils.StringUtils;
 
-import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
 public abstract class MatchTool {
@@ -94,9 +90,9 @@ public abstract class MatchTool {
 						}
 					}
 				}
-			} catch (NoSuchMethodException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException
-					| SecurityException | InstantiationException e) {
+			} catch (final Exception e) {
+
+				e.printStackTrace();
 			}
 		}
 
@@ -112,7 +108,9 @@ public abstract class MatchTool {
 			try {
 
 				inStream = req.getInputStream();
-			} catch (final IOException e) {
+			} catch (final Exception e) {
+
+				e.printStackTrace();
 			}
 		} else {
 
@@ -120,10 +118,12 @@ public abstract class MatchTool {
 			try (final InputStream is = req.getInputStream()) {
 
 				decrypt = new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
-						Constants.APP_ID).decryptMsg(vm.getMsg_signature(),
+						Constants.APP_ID).DecryptMsg(vm.getMsg_signature(),
 						vm.getTimestamp(), vm.getNonce(),
 						new SAXReader().read(is).asXML());
-			} catch (final IOException | DocumentException | AesException e) {
+			} catch (final Exception e) {
+
+				e.printStackTrace();
 
 				decrypt = "";
 			}
@@ -141,7 +141,9 @@ public abstract class MatchTool {
 
 				vals.put(e.getName(), e.getText());
 			}
-		} catch (final DocumentException e) {
+		} catch (final Exception e) {
+
+			e.printStackTrace();
 		} finally {
 
 			if (inStream != null) {
@@ -149,7 +151,9 @@ public abstract class MatchTool {
 				try {
 
 					inStream.close();
-				} catch (final IOException e) {
+				} catch (final Exception e) {
+
+					e.printStackTrace();
 				}
 			}
 		}

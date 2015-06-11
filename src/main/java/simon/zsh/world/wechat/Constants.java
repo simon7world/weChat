@@ -5,6 +5,8 @@ import java.security.SecureRandom;
 
 public abstract class Constants {
 
+	public static boolean ENTERPRISE = false;
+
 	public static String APP_ID = "wxc5682f9042753a9f";
 	public static String APP_SECRET = "90c2e089dc0200dfd08f0b95968382dd";
 

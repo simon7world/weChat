@@ -1,13 +1,10 @@
 package simon.zsh.world.wechat.utils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -84,8 +81,9 @@ final class HttpsUtil {
 
 				ret = buffer.toString();
 			}
-		} catch (final IOException | NoSuchAlgorithmException
-				| KeyManagementException e) {
+		} catch (final Exception e) {
+
+			e.printStackTrace();
 		} finally {
 
 			if (conn != null) {

@@ -1,7 +1,6 @@
 package simon.zsh.world.wechat.tools;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -51,7 +49,9 @@ public final class WeatherTool {
 			try {
 
 				return readXML((Document) DocumentHelper.parseText(html));
-			} catch (DocumentException e) {
+			} catch (final Exception e) {
+
+				e.printStackTrace();
 			}
 		}
 
@@ -71,7 +71,9 @@ public final class WeatherTool {
 
 				htmlSource.append(htmlLine.trim().toLowerCase());
 			}
-		} catch (IOException e) {
+		} catch (final Exception e) {
+
+			e.printStackTrace();
 		}
 
 		return htmlSource.toString();

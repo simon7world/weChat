@@ -44,6 +44,8 @@ public abstract class TokenUtil {
 						(int) ((double) vals.get("expires_in") * 0.9));
 				ACCESS_TOKEN_EXPIRED = c.getTime();
 			} catch (final Exception e) {
+				
+				e.printStackTrace();
 			}
 		}
 	}

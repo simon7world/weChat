@@ -39,10 +39,12 @@ public abstract class TicketUtil {
 				"noncestr=" + noncestr, "url=" + url,
 				"jsapi_ticket=" + JSAPI_TICKET };
 		Arrays.sort(arr);
-		final String content = StringUtils.collectionToDelimitedString(
-				Arrays.asList(arr), "&");
 
-		return new String[] { timestamp, noncestr, DigestUtils.sha1Hex(content) };
+		return new String[] {
+				timestamp,
+				noncestr,
+				DigestUtils.sha1Hex(StringUtils.collectionToDelimitedString(
+						Arrays.asList(arr), "&")) };
 	}
 
 	/**
@@ -66,6 +68,8 @@ public abstract class TicketUtil {
 						(int) ((double) vals.get("expires_in") * 0.9));
 				JSAPI_TICKET_EXPIRED = c.getTime();
 			} catch (final Exception e) {
+
+				e.printStackTrace();
 			}
 		}
 	}

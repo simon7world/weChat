@@ -8,7 +8,6 @@ import simon.zsh.world.wechat.Constants;
 import simon.zsh.world.wechat.receive.VerificationMessage;
 import simon.zsh.world.wechat.send.TextSendMessage;
 
-import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
 /**
@@ -40,7 +39,9 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 		try {
 
 			t = clazz.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (final Exception e) {
+
+			e.printStackTrace();
 		}
 
 		if (t != null) {
@@ -48,6 +49,7 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 			final SendMessageBase mrb = (SendMessageBase) t;
 			mrb.setToUserName(this.getFromUserName());
 			mrb.setFromUserName(this.getToUserName());
+			mrb.setAgentID(this.getAgentID());
 		}
 
 		return t;
@@ -81,11 +83,13 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 			if (reply != null) {
 
 				ret = new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
-						Constants.APP_ID).encryptMsg(reply,
+						Constants.APP_ID).EncryptMsg(reply,
 						"" + System.currentTimeMillis(),
 						Constants.RANDOM_STRING());
 			}
-		} catch (final AesException e) {
+		} catch (final Exception e) {
+
+			e.printStackTrace();
 		}
 
 		return ret;

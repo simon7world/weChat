@@ -6,7 +6,7 @@ package simon.zsh.world.wechat.basis;
 public abstract class MessageBase {
 
 	/**
-	 * Receive：微信公共平台原始ID Send：发送者OpenID
+	 * Receive：微信公共平台原始ID,Send：发送者OpenID
 	 */
 	private String toUserName;
 
@@ -19,7 +19,7 @@ public abstract class MessageBase {
 	}
 
 	/**
-	 * Receive：发送者OpenID Send：微信公共平台原始ID
+	 * Receive：发送者OpenID,Send：微信公共平台原始ID
 	 */
 	private String fromUserName;
 
@@ -57,4 +57,16 @@ public abstract class MessageBase {
 		this.msgType = msgType;
 	}
 
+	/*
+	 * 企业应用的ID
+	 */
+	private String agentID;
+
+	public String getAgentID() {
+		return agentID;
+	}
+
+	public void setAgentID(String agentID) {
+		this.agentID = agentID;
+	}
 }
