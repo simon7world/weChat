@@ -120,7 +120,7 @@ public abstract class MatchTool {
 			try (final InputStream is = req.getInputStream()) {
 
 				decrypt = new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
-						Constants.APP_ID).decryptMsg(vm.getMsg_signature(),
+						Constants.APP_ID).DecryptMsg(vm.getMsg_signature(),
 						vm.getTimestamp(), vm.getNonce(),
 						new SAXReader().read(is).asXML());
 			} catch (final IOException | DocumentException | AesException e) {

@@ -7,6 +7,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import simon.zsh.world.wechat.Constants;
 import simon.zsh.world.wechat.utils.StringUtils;
 
+import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
+
 public final class VerificationMessage {
 
 	/**
@@ -94,10 +97,10 @@ public final class VerificationMessage {
 
 			final String[] arr = { Constants.TOKEN, timestamp, nonce };
 			Arrays.sort(arr);
-			final String content = StringUtils.collectionToDelimitedString(
-					Arrays.asList(arr), "");
 
-			if (DigestUtils.sha1Hex(content).equalsIgnoreCase(signature)) {
+			if (DigestUtils.sha1Hex(
+					StringUtils.collectionToDelimitedString(Arrays.asList(arr),
+							"")).equalsIgnoreCase(signature)) {
 
 				return true;
 			}
@@ -108,7 +111,18 @@ public final class VerificationMessage {
 
 	public String verify() {
 
-		if (check()) {
+		if (Constants.ENTERPRISE) {
+
+			try {
+
+				return new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
+						Constants.APP_ID).VerifyURL(msg_signature, timestamp,
+						nonce, echostr);
+			} catch (final AesException e) {
+
+				e.printStackTrace();
+			}
+		} else if (check()) {
 
 			return echostr;
 		}
@@ -118,6 +132,6 @@ public final class VerificationMessage {
 
 	public boolean hasEncrypted() {
 
-		return "aes".equals(encrypt_type);
+		return Constants.ENTERPRISE || "aes".equals(encrypt_type);
 	}
 }

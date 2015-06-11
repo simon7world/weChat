@@ -9,6 +9,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import simon.zsh.world.wechat.Constants;
 import simon.zsh.world.wechat.basis.IToXml;
 
 public final class XmlTool {
@@ -23,7 +24,8 @@ public final class XmlTool {
 		for (final Method m : ms) {
 
 			final String name = m.getName();
-			if (name.startsWith("get") && !name.equals("getClass")) {
+			if (name.startsWith("get") && !name.equals("getClass")
+					&& (Constants.ENTERPRISE || !name.equals("getAgentID"))) {
 
 				try {
 
