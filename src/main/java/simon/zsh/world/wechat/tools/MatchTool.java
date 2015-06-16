@@ -17,7 +17,7 @@ import simon.zsh.world.wechat.basis.EventMessageBase;
 import simon.zsh.world.wechat.basis.ReceiveBase;
 import simon.zsh.world.wechat.basis.ReceiveMessageBase;
 import simon.zsh.world.wechat.receive.VerificationMessage;
-import simon.zsh.world.wechat.utils.StringUtils;
+import simon.zsh.world.wechat.utils.CommonUtil;
 
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
@@ -65,7 +65,7 @@ public abstract class MatchTool {
 		if (vals != null) {
 			try {
 
-				if (StringUtils.isEmpty(event)) {
+				if (CommonUtil.isEmpty(event)) {
 
 					for (final Class<?> clazz : MSGS) {
 

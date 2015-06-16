@@ -1,6 +1,5 @@
 package simon.zsh.world.wechat.utils;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -28,9 +27,9 @@ public abstract class TokenUtil {
 	 */
 	private static void getAccessToken() {
 
-		final String ret = new HttpsUtil().httpsRequest(String.format(
-				Constants.ACCESS_TOKEN_URL, Constants.APP_ID,
-				Constants.APP_SECRET), "GET", null);
+		final String ret = new HttpsUtil().httpsRequest(Constants
+				.ACCESS_TOKEN_URL(Constants.APP_ID, Constants.APP_SECRET),
+				"GET", null);
 		if (ret != null) {
 
 			try {
@@ -39,12 +38,10 @@ public abstract class TokenUtil {
 				final Map<String, Object> vals = new Gson().fromJson(ret,
 						Map.class);
 				ACCESS_TOKEN = (String) vals.get("access_token");
-				final Calendar c = Calendar.getInstance();
-				c.add(Calendar.SECOND,
-						(int) ((double) vals.get("expires_in") * 0.9));
-				ACCESS_TOKEN_EXPIRED = c.getTime();
+				ACCESS_TOKEN_EXPIRED = CommonUtil.expiresDate((double) vals
+						.get("expires_in"));
 			} catch (final Exception e) {
-				
+
 				e.printStackTrace();
 			}
 		}

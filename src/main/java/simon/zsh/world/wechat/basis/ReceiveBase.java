@@ -84,7 +84,7 @@ public abstract class ReceiveBase extends MessageBase implements IMakeMessage,
 
 				ret = new WXBizMsgCrypt(Constants.TOKEN, Constants.AES_KEY,
 						Constants.APP_ID).EncryptMsg(reply,
-						"" + System.currentTimeMillis(),
+						"" + System.currentTimeMillis() / 1000,
 						Constants.RANDOM_STRING());
 			}
 		} catch (final Exception e) {

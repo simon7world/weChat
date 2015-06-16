@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import simon.zsh.world.wechat.Constants;
-import simon.zsh.world.wechat.utils.StringUtils;
+import simon.zsh.world.wechat.utils.CommonUtil;
 
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
@@ -93,20 +93,20 @@ public final class VerificationMessage {
 
 		if (Constants.ENTERPRISE) {
 
-			if (!(StringUtils.isEmpty(msg_signature)
-					|| StringUtils.isEmpty(timestamp) || StringUtils
+			if (!(CommonUtil.isEmpty(msg_signature)
+					|| CommonUtil.isEmpty(timestamp) || CommonUtil
 						.isEmpty(nonce))) {
 
 				return true;
 			}
-		} else if (!(StringUtils.isEmpty(signature)
-				|| StringUtils.isEmpty(timestamp) || StringUtils.isEmpty(nonce))) {
+		} else if (!(CommonUtil.isEmpty(signature)
+				|| CommonUtil.isEmpty(timestamp) || CommonUtil.isEmpty(nonce))) {
 
 			final String[] arr = { Constants.TOKEN, timestamp, nonce };
 			Arrays.sort(arr);
 
 			if (DigestUtils.sha1Hex(
-					StringUtils.collectionToDelimitedString(Arrays.asList(arr),
+					CommonUtil.collectionToDelimitedString(Arrays.asList(arr),
 							"")).equalsIgnoreCase(signature)) {
 
 				return true;

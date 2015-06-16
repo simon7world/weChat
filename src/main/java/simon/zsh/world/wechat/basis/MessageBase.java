@@ -34,7 +34,7 @@ public abstract class MessageBase {
 	/**
 	 * 消息创建时间
 	 */
-	private Long createTime = System.currentTimeMillis();
+	private Long createTime = System.currentTimeMillis() / 1000;
 
 	public Long getCreateTime() {
 		return createTime;

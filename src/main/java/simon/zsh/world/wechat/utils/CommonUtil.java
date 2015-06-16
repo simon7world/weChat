@@ -1,9 +1,22 @@
 package simon.zsh.world.wechat.utils;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 
-public abstract class StringUtils {
+public abstract class CommonUtil {
+
+	public static boolean isEmpty(Collection<?> collection) {
+
+		return (collection == null || collection.isEmpty());
+	}
+
+	public static boolean isEmpty(Map<?, ?> map) {
+
+		return (map == null || map.isEmpty());
+	}
 
 	public static boolean isEmpty(Object str) {
 
@@ -30,7 +43,7 @@ public abstract class StringUtils {
 	public static String collectionToDelimitedString(Collection<?> coll,
 			String delim) {
 
-		if (CollectionUtils.isEmpty(coll)) {
+		if (isEmpty(coll)) {
 
 			return "";
 		}
@@ -49,4 +62,11 @@ public abstract class StringUtils {
 		return sb.toString();
 	}
 
+	public static Date expiresDate(final double expiresIn) {
+
+		final Calendar c = Calendar.getInstance();
+		c.add(Calendar.SECOND, (int) (expiresIn * 0.9));
+
+		return c.getTime();
+	}
 }

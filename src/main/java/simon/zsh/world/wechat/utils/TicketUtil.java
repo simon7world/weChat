@@ -1,11 +1,8 @@
 package simon.zsh.world.wechat.utils;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -18,7 +15,7 @@ public abstract class TicketUtil {
 	private static String JSAPI_TICKET = null;
 	private static Date JSAPI_TICKET_EXPIRED = null;
 
-	public synchronized static String getJSAPI_TICKET() {
+	private static String getJSAPI_TICKET() {
 
 		if (JSAPI_TICKET == null || JSAPI_TICKET_EXPIRED.before(new Date())) {
 
@@ -28,22 +25,20 @@ public abstract class TicketUtil {
 		return JSAPI_TICKET;
 	}
 
-	public synchronized static String[] getJSAPI_SIGNATURE(
-			final HttpServletRequest req) {
+	public synchronized static String[] getJSAPI_SIGNATURE(final String url) {
 
-		final String timestamp = "" + System.currentTimeMillis();
+		final String timestamp = "" + System.currentTimeMillis() / 1000;
 		final String noncestr = Constants.RANDOM_STRING();
-		final String url = req.getRequestURL() + "?" + req.getQueryString();
 
 		final String[] arr = { "timestamp=" + timestamp,
 				"noncestr=" + noncestr, "url=" + url,
-				"jsapi_ticket=" + JSAPI_TICKET };
+				"jsapi_ticket=" + getJSAPI_TICKET() };
 		Arrays.sort(arr);
 
 		return new String[] {
 				timestamp,
 				noncestr,
-				DigestUtils.sha1Hex(StringUtils.collectionToDelimitedString(
+				DigestUtils.sha1Hex(CommonUtil.collectionToDelimitedString(
 						Arrays.asList(arr), "&")) };
 	}
 
@@ -53,8 +48,8 @@ public abstract class TicketUtil {
 	private static void getJsapiTicket() {
 
 		final String ret = new HttpsUtil().httpsRequest(
-				String.format(Constants.JSAPI_TICKET_URL,
-						TokenUtil.getACCESS_TOKEN()), "GET", null);
+				Constants.JSAPI_TICKET_URL(TokenUtil.getACCESS_TOKEN()), "GET",
+				null);
 		if (ret != null) {
 
 			try {
@@ -63,10 +58,8 @@ public abstract class TicketUtil {
 				final Map<String, Object> vals = new Gson().fromJson(ret,
 						Map.class);
 				JSAPI_TICKET = (String) vals.get("ticket");
-				final Calendar c = Calendar.getInstance();
-				c.add(Calendar.SECOND,
-						(int) ((double) vals.get("expires_in") * 0.9));
-				JSAPI_TICKET_EXPIRED = c.getTime();
+				JSAPI_TICKET_EXPIRED = CommonUtil.expiresDate((double) vals
+						.get("expires_in"));
 			} catch (final Exception e) {
 
 				e.printStackTrace();

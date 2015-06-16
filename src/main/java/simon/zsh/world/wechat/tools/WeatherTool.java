@@ -16,7 +16,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import simon.zsh.world.wechat.utils.StringUtils;
+import simon.zsh.world.wechat.utils.CommonUtil;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
@@ -111,14 +111,14 @@ public final class WeatherTool {
 			List<String> dAn = vals.subList(1, 6);
 			content.append("  " + dAn.remove(0) + "：");
 			dAn.remove(2);
-			content.append(StringUtils.collectionToDelimitedString(dAn, "  "));
+			content.append(CommonUtil.collectionToDelimitedString(dAn, "  "));
 			if (vals.size() > 4) {
 
 				dAn = vals.subList(4, vals.size());
 				content.append("\n  " + dAn.remove(0) + "：");
 				dAn.remove(2);
-				content.append(StringUtils.collectionToDelimitedString(dAn,
-						"  "));
+				content.append(CommonUtil
+						.collectionToDelimitedString(dAn, "  "));
 			}
 
 			if (it.hasNext()) {
