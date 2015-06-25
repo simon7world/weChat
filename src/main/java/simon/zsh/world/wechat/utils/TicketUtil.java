@@ -17,17 +17,12 @@ public abstract class TicketUtil {
 
 	private static String getJSAPI_TICKET() {
 
-		if (expired()) {
+		if (JSAPI_TICKET == null || JSAPI_TICKET_EXPIRED.before(new Date())) {
 
 			getJsapiTicket();
 		}
 
 		return JSAPI_TICKET;
-	}
-
-	public synchronized static boolean expired() {
-
-		return JSAPI_TICKET == null || JSAPI_TICKET_EXPIRED.before(new Date());
 	}
 
 	public synchronized static String[] getJSAPI_SIGNATURE(final String url) {

@@ -65,7 +65,8 @@ public abstract class CommonUtil {
 	public static Date expiresDate(final double expiresIn) {
 
 		final Calendar c = Calendar.getInstance();
-		c.add(Calendar.SECOND, (int) expiresIn);
+		c.add(Calendar.SECOND, (int) (expiresIn * 0.97));
+		// c.add(Calendar.SECOND, 60);
 
 		return c.getTime();
 	}
