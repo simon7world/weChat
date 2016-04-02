@@ -31,8 +31,8 @@ public abstract class MenuManager {
 		btn13.setKey("bible3");
 		bible.add(btn13);
 
-		final ClickButton btn14 = new ClickButton("随机经句");
-		btn14.setKey("bible4");
+		final ViewButton btn14 = new ViewButton("恩典365");
+		btn14.setUrl("http://115.29.224.112/grace365");
 		bible.add(btn14);
 
 		final ClickButton btn15 = new ClickButton("每日箴言");
@@ -87,6 +87,10 @@ public abstract class MenuManager {
 		btn34.setKey("about4");
 		about.add(btn34);
 
+		final ClickButton btn35 = new ClickButton("随机经句");
+		btn35.setKey("about5");
+		about.add(btn35);
+
 		Collections.reverse(about);
 
 		/**
@@ -101,10 +105,10 @@ public abstract class MenuManager {
 		return menu;
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
-		// System.out.println(MenuUtil.getMenu());
-		System.out.println(MenuUtil.deleteMenu() ? "成 功" : "失 败");
-		System.out.println(MenuUtil.createMenu(getMenu()) ? "成 功" : "失 败");
+		// System.out.println("当前菜单：\n" + MenuUtil.getMenu());
+		System.out.println("删除菜单 " + (MenuUtil.deleteMenu() ? "成 功" : "失 败"));
+		System.out.println("创建菜单 " + (MenuUtil.createMenu(getMenu()) ? "成 功" : "失 败"));
 	}
 }

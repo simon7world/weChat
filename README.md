@@ -1,6 +1,6 @@
 WeChat Interface for Java
 =========================
-Last Version: 1.2<br>
+Last Version: 1.3<br>
 Author: Simon Chang<br>
 Email: simon.p.7@outlook.com
 
@@ -28,10 +28,9 @@ Dependency
 ==========
 dom4j: 1.6.1 or later<br>
 jaxen: 1.1.6 or later<br>
-gson: 2.3.1 or later<br>
-guava: 18.0 or later<br>
-wechat aes: 1.0 or later<br>
-servlet-api: 2.5 or later
+gson: 2.6.2 or later<br>
+guava: 19.0 or later<br>
+wechat aes: 1.0 or later
 
 
 Illegal Key Size Exception

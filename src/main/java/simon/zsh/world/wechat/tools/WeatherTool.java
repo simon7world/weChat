@@ -1,8 +1,10 @@
 package simon.zsh.world.wechat.tools;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,14 +18,14 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import simon.zsh.world.wechat.utils.CommonUtil;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 
+import simon.zsh.world.wechat.utils.CommonUtil;
+
 public final class WeatherTool {
 
-	public String fromHtml() {
+	public String fromHtml() throws IOException {
 
 		int times = 3;
 		while (times-- > 0) {
@@ -58,12 +60,15 @@ public final class WeatherTool {
 		return "接口当前正忙，请稍候再试！";
 	}
 
-	private String htmlSource(final String url) {
+	private String htmlSource(final String url) throws IOException {
+
+		final URLConnection conn = new URL(url).openConnection();
+		conn.setConnectTimeout(60000);
+		conn.setReadTimeout(60000);
 
 		final StringBuilder htmlSource = new StringBuilder(7800);
-
 		try (final BufferedReader in = new BufferedReader(
-				new InputStreamReader(new URL(url).openStream(),
+				new InputStreamReader(conn.getInputStream(),
 						StandardCharsets.UTF_8))) {
 
 			String htmlLine;
